@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/softhouse-site/static/css/main.3faed216.css",
-    "main.js": "/softhouse-site/static/js/main.0c2aedf0.js",
+    "main.css": "/softhouse-site/static/css/main.0c70145e.css",
+    "main.js": "/softhouse-site/static/js/main.35e85cad.js",
     "static/js/453.a54a65a6.chunk.js": "/softhouse-site/static/js/453.a54a65a6.chunk.js",
     "index.html": "/softhouse-site/index.html",
-    "main.3faed216.css.map": "/softhouse-site/static/css/main.3faed216.css.map",
-    "main.0c2aedf0.js.map": "/softhouse-site/static/js/main.0c2aedf0.js.map",
+    "main.0c70145e.css.map": "/softhouse-site/static/css/main.0c70145e.css.map",
+    "main.35e85cad.js.map": "/softhouse-site/static/js/main.35e85cad.js.map",
     "453.a54a65a6.chunk.js.map": "/softhouse-site/static/js/453.a54a65a6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3faed216.css",
-    "static/js/main.0c2aedf0.js"
+    "static/css/main.0c70145e.css",
+    "static/js/main.35e85cad.js"
   ]
 }
