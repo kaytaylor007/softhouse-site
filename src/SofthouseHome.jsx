@@ -85,20 +85,12 @@ export default function SofthouseHome() {
 
           {/* Hero Illustration */}
           <div className="order-first md:order-last relative">
-            <div className="relative bg-gradient-to-tr from-[#2563EB] via-[#9333EA] to-[#84CC16] rounded-3xl p-10 shadow-2xl overflow-hidden">
-              <svg className="w-full h-72" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <linearGradient id="grad-ui" x1="0" x2="1">
-                    <stop offset="0%" stopColor="#fff" stopOpacity="0.9" />
-                    <stop offset="100%" stopColor="#F3F4F6" stopOpacity="0.9" />
-                  </linearGradient>
-                </defs>
-                <circle cx="80" cy="100" r="60" fill="#2563EB" opacity="0.7" />
-                <circle cx="250" cy="120" r="90" fill="#9333EA" opacity="0.7" />
-                <circle cx="320" cy="220" r="70" fill="#84CC16" opacity="0.7" />
-                <rect x="100" y="120" width="200" height="120" rx="20" fill="url(#grad-ui)" stroke="#9333EA" strokeWidth="2" />
-                <text x="200" y="185" textAnchor="middle" fontSize="20" fontWeight="bold" fill="#111827">App Mockup</text>
-              </svg>
+            <div
+              className="relative rounded-3xl shadow-2xl overflow-hidden h-96 bg-cover bg-center"
+              style={{ backgroundImage: "url('/softhouse-site/hero.png')" }}
+            >
+              {/* Optional dark overlay to make text more readable */}
+              <div className="absolute inset-0 bg-black/10"></div>
             </div>
           </div>
         </section>
