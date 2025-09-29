@@ -4,42 +4,67 @@ import React from "react";
 import { Smartphone, Laptop, Brain } from "lucide-react";
 import { motion } from "motion/react";
 
-const Logo = ({ className = "w-48" }) => (
-  <div className={"flex items-center gap-4 " + className}>
-    {/* Logo Symbol (House + Tech Motif) */}
-    <svg
-      width="64"
-      height="64"
-      viewBox="0 0 44 44"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden
-    >
-      {/* Single-color fill for the house */}
-      <rect x="4" y="12" width="36" height="24" rx="6" fill="#2563EB" />
-      <path d="M4 20 L22 8 L40 20" stroke="white" strokeWidth="2.5" fill="none" />
-      {/* Circuit nodes */}
-      <circle cx="14" cy="26" r="2" fill="white"/>
-      <circle cx="22" cy="26" r="2" fill="white"/>
-      <circle cx="30" cy="26" r="2" fill="white"/>
-    </svg>
-
-    {/* Text Lockup */}
-    <div className="font-poppins font-semibold text-lg text-neutral-900 leading-none">
-      <div className="flex items-baseline gap-2">
-        <span className="text-[22px]">Softhouse</span>
-      </div>
-      <div className="text-[12px] text-neutral-700 -mt-0.5">
-        Modern Web, Mobile & AI Solutions
-      </div>
-    </div>
+const Logo = ({ className = "w-full" }) => (
+  <div className={"flex items-center " + className}>
+    {/* Text-based Google-style logo */}
+    <h1 className="font-poppins font-extrabold text-4xl tracking-tight leading-none flex">
+      <span style={{ color: "#2563EB" }}>S</span>
+      <span style={{ color: "#9333EA" }}>o</span>
+      <span style={{ color: "#84CC16" }}>f</span>
+      <span style={{ color: "#2563EB" }}>t</span>
+      <span style={{ color: "#9333EA" }}>h</span>
+      <span style={{ color: "#84CC16" }}>o</span>
+      <span style={{ color: "#2563EB" }}>u</span>
+      <span style={{ color: "#9333EA" }}>s</span>
+      <span style={{ color: "#84CC16" }}>e</span>
+    </h1>
   </div>
 );
 
+// const Logo = ({ className = "w-48" }) => (
+//   <div className={"flex items-center gap-4 " + className}>
+//     {/* Logo Symbol (House + Tech Motif) */}
+//     <svg
+//       width="64"
+//       height="64"
+//       viewBox="0 0 44 44"
+//       xmlns="http://www.w3.org/2000/svg"
+//       aria-hidden
+//     >
+//       {/* Single-color fill for the house */}
+//       <rect x="4" y="12" width="36" height="24" rx="6" fill="#2563EB" />
+//       <path d="M4 20 L22 8 L40 20" stroke="white" strokeWidth="2.5" fill="none" />
+//       {/* Circuit nodes */}
+//       <circle cx="14" cy="26" r="2" fill="white"/>
+//       <circle cx="22" cy="26" r="2" fill="white"/>
+//       <circle cx="30" cy="26" r="2" fill="white"/>
+//     </svg>
+
+//     {/* Text Lockup */}
+//     <div className="font-poppins font-semibold text-lg text-neutral-900 leading-none">
+//       <div className="flex items-baseline gap-2">
+//         <span className="text-[22px]">Softhouse</span>
+//       </div>
+//       <div className="text-[12px] text-neutral-700 -mt-0.5">
+//         Modern Web, Mobile & AI Solutions
+//       </div>
+//     </div>
+//   </div>
+// );
+
 const GradientButton = ({ children, colors }) => (
-  <button className={`px-6 py-3 rounded-xl text-white font-semibold shadow-lg bg-gradient-to-r ${colors} transform hover:scale-105 transition`}>
+  <button
+    className={`px-8 py-3 rounded-xl text-white font-semibold shadow-lg bg-gradient-to-r ${colors} transform hover:scale-105 transition whitespace-nowrap`}
+  >
     {children}
   </button>
 );
+
+{/*const GradientButton = ({ children, colors }) => (
+  <button className={`px-6 py-3 rounded-xl text-white font-semibold shadow-lg bg-gradient-to-r ${colors} transform hover:scale-105 transition`}>
+    {children}
+  </button>
+);*/}
 
 const ServiceCard = ({ title, subtitle, gradient, icon, features, delay = 0 }) => {
   // Variants
@@ -223,11 +248,16 @@ export default function SofthouseHome() {
 
         {/* Footer */}
         <footer className="mt-24 py-8 text-sm text-neutral-700">
+          <div className="flex justify-center">
+            © {new Date().getFullYear()} Softhouse. All rights reserved.
+          </div>
+        </footer>
+        {/*<footer className="mt-24 py-8 text-sm text-neutral-700">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <Logo className="w-36" />
             <div>© {new Date().getFullYear()} Softhouse. All rights reserved.</div>
           </div>
-        </footer>
+        </footer>*/}
       </main>
     </div>
   );
