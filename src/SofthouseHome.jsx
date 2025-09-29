@@ -4,24 +4,33 @@ import React from "react";
 import { Smartphone, Laptop, Brain } from "lucide-react";
 import { motion } from "motion/react";
 
-const Logo = ({ className = "w-40" }) => (
-  <div className={"flex items-center gap-3 " + className}>
-    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-      <defs>
-        <linearGradient id="grad1" x1="0" x2="1">
-          <stop offset="0%" stopColor="#2563EB" />
-          <stop offset="50%" stopColor="#9333EA" />
-          <stop offset="100%" stopColor="#84CC16" />
-        </linearGradient>
-      </defs>
-      <rect x="2" y="6" width="40" height="32" rx="8" fill="url(#grad1)" />
-      <path d="M11 18h22v8H11z" fill="#fff" opacity="0.15" />
+const Logo = ({ className = "w-48" }) => (
+  <div className={"flex items-center gap-4 " + className}>
+    {/* Logo Symbol (House + Tech Motif) */}
+    <svg
+      width="64"
+      height="64"
+      viewBox="0 0 44 44"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden
+    >
+      {/* Single-color fill for the house */}
+      <rect x="4" y="12" width="36" height="24" rx="6" fill="#2563EB" />
+      <path d="M4 20 L22 8 L40 20" stroke="white" strokeWidth="2.5" fill="none" />
+      {/* Circuit nodes */}
+      <circle cx="14" cy="26" r="2" fill="white"/>
+      <circle cx="22" cy="26" r="2" fill="white"/>
+      <circle cx="30" cy="26" r="2" fill="white"/>
     </svg>
+
+    {/* Text Lockup */}
     <div className="font-poppins font-semibold text-lg text-neutral-900 leading-none">
       <div className="flex items-baseline gap-2">
-        <span className="text-[20px]">Softhouse</span>
+        <span className="text-[22px]">Softhouse</span>
       </div>
-      <div className="text-[11px] text-neutral-700 -mt-0.5">Modern Web, Mobile & AI Solutions</div>
+      <div className="text-[12px] text-neutral-700 -mt-0.5">
+        Modern Web, Mobile & AI Solutions
+      </div>
     </div>
   </div>
 );
@@ -33,10 +42,15 @@ const GradientButton = ({ children, colors }) => (
 );
 
 const ServiceCard = ({ title, subtitle, gradient, icon, features, delay = 0 }) => {
-  // Variants for the icon animation
+  // Variants
   const iconVariants = {
     initial: { scale: 1, rotate: 0 },
     hover: { scale: 1.15, rotate: 5 },
+  };
+
+  const textVariants = {
+    initial: { y: 0 },
+    hover: { y: -4 }, // shift text up slightly
   };
 
   return (
@@ -45,114 +59,49 @@ const ServiceCard = ({ title, subtitle, gradient, icon, features, delay = 0 }) =
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.6, delay }}
-      whileHover="hover" // 👈 sets the hover state for children
+      whileHover="hover"
       className={`flex flex-col justify-between h-full rounded-2xl shadow-lg p-8 bg-gradient-to-br ${gradient} text-white
       transform hover:-translate-y-2 hover:shadow-2xl transition-all duration-300`}
     >
       {/* Top: Icon + Title */}
       <div>
-        {/* Icon now listens to parent hover */}
+        {/* Icon */}
         <motion.div
           variants={iconVariants}
-          transition={{ type: "spring", stiffness: 300, damping: 15 }}
+          transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0 }}
           className="w-16 h-16 rounded-xl flex items-center justify-center 
             bg-gradient-to-br from-white/40 to-white/10 shadow-inner mb-6"
         >
           {icon}
         </motion.div>
 
-        <h4 className="font-poppins font-semibold text-xl mb-2">{title}</h4>
-        <p className="text-sm text-white/90">{subtitle}</p>
+        {/* Title + Subtitle */}
+        <motion.div
+          variants={textVariants}
+          transition={{ duration: 0.25, delay: 0.1 }}
+        >
+          <h4 className="font-poppins font-semibold text-xl mb-2">{title}</h4>
+          <p className="text-sm text-white/90">{subtitle}</p>
+        </motion.div>
       </div>
 
       {/* Bottom: Features */}
       {features && (
-        <ul className="mt-6 space-y-1 text-sm text-white/85">
+        <motion.ul
+          variants={textVariants}
+          transition={{ duration: 0.25, delay: 0.15 }}
+          className="mt-6 space-y-1 text-sm text-white/85"
+        >
           {features.map((f, i) => (
             <li key={i} className="flex items-center gap-2">
               <span className="text-white/70">✔</span> {f}
             </li>
           ))}
-        </ul>
+        </motion.ul>
       )}
     </motion.div>
   );
 };
-
-// const ServiceCard = ({ title, subtitle, gradient, icon, features }) => (
-//   <div
-//     className={`flex flex-col justify-between h-full rounded-2xl shadow-lg p-8 bg-gradient-to-br ${gradient} text-white
-//     transform hover:-translate-y-2 hover:shadow-2xl transition-all duration-300`}
-//   >
-//     {/* Top: Icon + Title */}
-//     <div>
-//       {/* Icon Container */}
-//       <div
-//         className="w-16 h-16 rounded-xl flex items-center justify-center 
-//         bg-gradient-to-br from-white/40 to-white/10 shadow-inner mb-6
-//         group-hover:scale-110 transition-transform duration-300"
-//       >
-//         {icon}
-//       </div>
-
-//       <h4 className="font-poppins font-semibold text-xl mb-2">{title}</h4>
-//       <p className="text-sm text-white/90">{subtitle}</p>
-//     </div>
-
-//     {/* Bottom: Features */}
-//     {features && (
-//       <ul className="mt-6 space-y-1 text-sm text-white/85">
-//         {features.map((f, i) => (
-//           <li key={i} className="flex items-center gap-2">
-//             <span className="text-white/70">✔</span> {f}
-//           </li>
-//         ))}
-//       </ul>
-//     )}
-//   </div>
-// );
-
-// const ServiceCard = ({ title, subtitle, gradient, icon, features }) => (
-//   <div
-//     className={`flex-1 rounded-2xl shadow-lg p-8 min-w-[240px] bg-gradient-to-br ${gradient} text-white
-//     transform hover:-translate-y-2 hover:shadow-2xl transition-all duration-300`}
-//   >
-//     {/* Icon Container */}
-//     <div className="w-16 h-16 rounded-xl flex items-center justify-center 
-//       bg-gradient-to-br from-white/40 to-white/10 shadow-inner mb-6
-//       group-hover:scale-110 transition-transform duration-300"
-//     >
-//       {icon}
-//     </div>
-
-//     {/* Title */}
-//     <h4 className="font-poppins font-semibold text-xl mb-2">{title}</h4>
-
-//     {/* Subtitle */}
-//     <p className="text-sm text-white/90 mb-3">{subtitle}</p>
-
-//     {/* Optional Features List */}
-//     {features && (
-//       <ul className="mt-2 space-y-1 text-sm text-white/85">
-//         {features.map((f, i) => (
-//           <li key={i} className="flex items-center gap-2">
-//             <span className="text-white/70">✔</span> {f}
-//           </li>
-//         ))}
-//       </ul>
-//     )}
-//   </div>
-// );
-
-{/*const ServiceCard = ({ title, subtitle, gradient, icon }) => (
-  <div className={`flex-1 rounded-2xl shadow-lg p-6 min-w-[220px] bg-gradient-to-br ${gradient} text-white hover:scale-105 transition`}>
-    <div className="w-14 h-14 rounded-lg flex items-center justify-center bg-white/20 mb-4">
-      {icon}
-    </div>
-    <h4 className="font-poppins font-semibold text-lg mb-1">{title}</h4>
-    <p className="text-sm opacity-90">{subtitle}</p>
-  </div>
-);*/}
 
 const ProjectCard = ({ title, gradient }) => (
   <div className={`rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition bg-gradient-to-br ${gradient}`}>
@@ -208,6 +157,7 @@ export default function SofthouseHome() {
             </div>
           </div>
         </section>
+
         {/* Services */}
         <section id="services" className="mt-24">
           <h2 className="text-3xl font-poppins font-bold mb-12 text-center">
@@ -241,69 +191,6 @@ export default function SofthouseHome() {
             />
           </div>
         </section>
-        {/*<section id="services" className="mt-24">
-          <h2 className="text-3xl font-poppins font-bold mb-12 text-center">
-            Services
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <ServiceCard
-              title="Mobile Development"
-              subtitle="React Native, Kotlin"
-              gradient="from-[#2563EB] to-[#9333EA]"
-              icon={<Smartphone size={32} strokeWidth={2.5} />}
-              features={["Cross-platform Apps", "Native Performance", "Smooth UX"]}
-            />
-            <ServiceCard
-              title="Web Applications"
-              subtitle="React, Node, Laravel"
-              gradient="from-[#9333EA] to-[#84CC16]"
-              icon={<Laptop size={32} strokeWidth={2.5} />}
-              features={["Scalable Backends", "Modern Frontends", "API Integrations"]}
-            />
-            <ServiceCard
-              title="AI & Machine Learning"
-              subtitle="Python, TensorFlow"
-              gradient="from-[#84CC16] to-[#2563EB]"
-              icon={<Brain size={32} strokeWidth={2.5} />}
-              features={["Predictive Models", "NLP Solutions", "Computer Vision"]}
-            />
-          </div>
-        </section>*/}
-        {/*<section id="services" className="mt-24">
-          <h2 className="text-3xl font-poppins font-bold mb-10 text-center">Services</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <ServiceCard
-              title="Mobile Development"
-              subtitle="React Native, Kotlin"
-              gradient="from-[#2563EB] to-[#9333EA]"
-              icon={<Smartphone size={32} strokeWidth={2.5} />}
-              features={["Cross-platform Apps", "Native Performance", "Smooth UX"]}
-            />
-            <ServiceCard
-              title="Web Applications"
-              subtitle="React, Node, Laravel"
-              gradient="from-[#9333EA] to-[#84CC16]"
-              icon={<Laptop size={32} strokeWidth={2.5} />}
-              features={["Scalable Backends", "Modern Frontends", "API Integrations"]}
-            />
-            <ServiceCard
-              title="AI & Machine Learning"
-              subtitle="Python, TensorFlow"
-              gradient="from-[#84CC16] to-[#2563EB]"
-              icon={<Brain size={32} strokeWidth={2.5} />}
-              features={["Predictive Models", "NLP Solutions", "Computer Vision"]}
-            />
-          </div>
-        </section>*/}
-        {/*<section id="services" className="mt-24">
-          <h2 className="text-3xl font-poppins font-bold mb-10 text-center">Services</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <ServiceCard title="Mobile Development" subtitle="React Native, Kotlin" gradient="from-[#2563EB] to-[#9333EA]" icon={<span>📱</span>} />
-            <ServiceCard title="Web Applications" subtitle="React, Node, Laravel" gradient="from-[#9333EA] to-[#84CC16]" icon={<span>💻</span>} />
-            <ServiceCard title="AI & Machine Learning" subtitle="Python, TensorFlow" gradient="from-[#84CC16] to-[#2563EB]" icon={<span>🤖</span>} />
-          </div>
-        </section>*/}
 
         {/* Portfolio */}
         <section id="portfolio" className="mt-24">
