@@ -1,6 +1,8 @@
 /* Softhouse homepage prototype — iteration 3 (maximizing vibrancy & modern style) */
 
 import React from "react";
+import { Smartphone, Laptop, Brain } from "lucide-react";
+import { motion } from "motion/react";
 
 const Logo = ({ className = "w-40" }) => (
   <div className={"flex items-center gap-3 " + className}>
@@ -30,7 +32,119 @@ const GradientButton = ({ children, colors }) => (
   </button>
 );
 
-const ServiceCard = ({ title, subtitle, gradient, icon }) => (
+const ServiceCard = ({ title, subtitle, gradient, icon, features, delay = 0 }) => {
+  // Variants for the icon animation
+  const iconVariants = {
+    initial: { scale: 1, rotate: 0 },
+    hover: { scale: 1.15, rotate: 5 },
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, delay }}
+      whileHover="hover" // 👈 sets the hover state for children
+      className={`flex flex-col justify-between h-full rounded-2xl shadow-lg p-8 bg-gradient-to-br ${gradient} text-white
+      transform hover:-translate-y-2 hover:shadow-2xl transition-all duration-300`}
+    >
+      {/* Top: Icon + Title */}
+      <div>
+        {/* Icon now listens to parent hover */}
+        <motion.div
+          variants={iconVariants}
+          transition={{ type: "spring", stiffness: 300, damping: 15 }}
+          className="w-16 h-16 rounded-xl flex items-center justify-center 
+            bg-gradient-to-br from-white/40 to-white/10 shadow-inner mb-6"
+        >
+          {icon}
+        </motion.div>
+
+        <h4 className="font-poppins font-semibold text-xl mb-2">{title}</h4>
+        <p className="text-sm text-white/90">{subtitle}</p>
+      </div>
+
+      {/* Bottom: Features */}
+      {features && (
+        <ul className="mt-6 space-y-1 text-sm text-white/85">
+          {features.map((f, i) => (
+            <li key={i} className="flex items-center gap-2">
+              <span className="text-white/70">✔</span> {f}
+            </li>
+          ))}
+        </ul>
+      )}
+    </motion.div>
+  );
+};
+
+// const ServiceCard = ({ title, subtitle, gradient, icon, features }) => (
+//   <div
+//     className={`flex flex-col justify-between h-full rounded-2xl shadow-lg p-8 bg-gradient-to-br ${gradient} text-white
+//     transform hover:-translate-y-2 hover:shadow-2xl transition-all duration-300`}
+//   >
+//     {/* Top: Icon + Title */}
+//     <div>
+//       {/* Icon Container */}
+//       <div
+//         className="w-16 h-16 rounded-xl flex items-center justify-center 
+//         bg-gradient-to-br from-white/40 to-white/10 shadow-inner mb-6
+//         group-hover:scale-110 transition-transform duration-300"
+//       >
+//         {icon}
+//       </div>
+
+//       <h4 className="font-poppins font-semibold text-xl mb-2">{title}</h4>
+//       <p className="text-sm text-white/90">{subtitle}</p>
+//     </div>
+
+//     {/* Bottom: Features */}
+//     {features && (
+//       <ul className="mt-6 space-y-1 text-sm text-white/85">
+//         {features.map((f, i) => (
+//           <li key={i} className="flex items-center gap-2">
+//             <span className="text-white/70">✔</span> {f}
+//           </li>
+//         ))}
+//       </ul>
+//     )}
+//   </div>
+// );
+
+// const ServiceCard = ({ title, subtitle, gradient, icon, features }) => (
+//   <div
+//     className={`flex-1 rounded-2xl shadow-lg p-8 min-w-[240px] bg-gradient-to-br ${gradient} text-white
+//     transform hover:-translate-y-2 hover:shadow-2xl transition-all duration-300`}
+//   >
+//     {/* Icon Container */}
+//     <div className="w-16 h-16 rounded-xl flex items-center justify-center 
+//       bg-gradient-to-br from-white/40 to-white/10 shadow-inner mb-6
+//       group-hover:scale-110 transition-transform duration-300"
+//     >
+//       {icon}
+//     </div>
+
+//     {/* Title */}
+//     <h4 className="font-poppins font-semibold text-xl mb-2">{title}</h4>
+
+//     {/* Subtitle */}
+//     <p className="text-sm text-white/90 mb-3">{subtitle}</p>
+
+//     {/* Optional Features List */}
+//     {features && (
+//       <ul className="mt-2 space-y-1 text-sm text-white/85">
+//         {features.map((f, i) => (
+//           <li key={i} className="flex items-center gap-2">
+//             <span className="text-white/70">✔</span> {f}
+//           </li>
+//         ))}
+//       </ul>
+//     )}
+//   </div>
+// );
+
+{/*const ServiceCard = ({ title, subtitle, gradient, icon }) => (
   <div className={`flex-1 rounded-2xl shadow-lg p-6 min-w-[220px] bg-gradient-to-br ${gradient} text-white hover:scale-105 transition`}>
     <div className="w-14 h-14 rounded-lg flex items-center justify-center bg-white/20 mb-4">
       {icon}
@@ -38,7 +152,7 @@ const ServiceCard = ({ title, subtitle, gradient, icon }) => (
     <h4 className="font-poppins font-semibold text-lg mb-1">{title}</h4>
     <p className="text-sm opacity-90">{subtitle}</p>
   </div>
-);
+);*/}
 
 const ProjectCard = ({ title, gradient }) => (
   <div className={`rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition bg-gradient-to-br ${gradient}`}>
@@ -94,16 +208,102 @@ export default function SofthouseHome() {
             </div>
           </div>
         </section>
-
         {/* Services */}
         <section id="services" className="mt-24">
+          <h2 className="text-3xl font-poppins font-bold mb-12 text-center">
+            Services
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <ServiceCard
+              title="Mobile Development"
+              subtitle="React Native, Kotlin"
+              gradient="from-[#2563EB] to-[#9333EA]"
+              icon={<Smartphone size={32} strokeWidth={2.5} />}
+              features={["Cross-platform Apps", "Native Performance", "Smooth UX"]}
+              delay={0.1}
+            />
+            <ServiceCard
+              title="Web Applications"
+              subtitle="React, Node, Laravel"
+              gradient="from-[#9333EA] to-[#84CC16]"
+              icon={<Laptop size={32} strokeWidth={2.5} />}
+              features={["Scalable Backends", "Modern Frontends", "API Integrations"]}
+              delay={0.25}
+            />
+            <ServiceCard
+              title="AI & Machine Learning"
+              subtitle="Python, TensorFlow"
+              gradient="from-[#84CC16] to-[#2563EB]"
+              icon={<Brain size={32} strokeWidth={2.5} />}
+              features={["Predictive Models", "NLP Solutions", "Computer Vision"]}
+              delay={0.4}
+            />
+          </div>
+        </section>
+        {/*<section id="services" className="mt-24">
+          <h2 className="text-3xl font-poppins font-bold mb-12 text-center">
+            Services
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <ServiceCard
+              title="Mobile Development"
+              subtitle="React Native, Kotlin"
+              gradient="from-[#2563EB] to-[#9333EA]"
+              icon={<Smartphone size={32} strokeWidth={2.5} />}
+              features={["Cross-platform Apps", "Native Performance", "Smooth UX"]}
+            />
+            <ServiceCard
+              title="Web Applications"
+              subtitle="React, Node, Laravel"
+              gradient="from-[#9333EA] to-[#84CC16]"
+              icon={<Laptop size={32} strokeWidth={2.5} />}
+              features={["Scalable Backends", "Modern Frontends", "API Integrations"]}
+            />
+            <ServiceCard
+              title="AI & Machine Learning"
+              subtitle="Python, TensorFlow"
+              gradient="from-[#84CC16] to-[#2563EB]"
+              icon={<Brain size={32} strokeWidth={2.5} />}
+              features={["Predictive Models", "NLP Solutions", "Computer Vision"]}
+            />
+          </div>
+        </section>*/}
+        {/*<section id="services" className="mt-24">
+          <h2 className="text-3xl font-poppins font-bold mb-10 text-center">Services</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <ServiceCard
+              title="Mobile Development"
+              subtitle="React Native, Kotlin"
+              gradient="from-[#2563EB] to-[#9333EA]"
+              icon={<Smartphone size={32} strokeWidth={2.5} />}
+              features={["Cross-platform Apps", "Native Performance", "Smooth UX"]}
+            />
+            <ServiceCard
+              title="Web Applications"
+              subtitle="React, Node, Laravel"
+              gradient="from-[#9333EA] to-[#84CC16]"
+              icon={<Laptop size={32} strokeWidth={2.5} />}
+              features={["Scalable Backends", "Modern Frontends", "API Integrations"]}
+            />
+            <ServiceCard
+              title="AI & Machine Learning"
+              subtitle="Python, TensorFlow"
+              gradient="from-[#84CC16] to-[#2563EB]"
+              icon={<Brain size={32} strokeWidth={2.5} />}
+              features={["Predictive Models", "NLP Solutions", "Computer Vision"]}
+            />
+          </div>
+        </section>*/}
+        {/*<section id="services" className="mt-24">
           <h2 className="text-3xl font-poppins font-bold mb-10 text-center">Services</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <ServiceCard title="Mobile Development" subtitle="React Native, Kotlin" gradient="from-[#2563EB] to-[#9333EA]" icon={<span>📱</span>} />
             <ServiceCard title="Web Applications" subtitle="React, Node, Laravel" gradient="from-[#9333EA] to-[#84CC16]" icon={<span>💻</span>} />
             <ServiceCard title="AI & Machine Learning" subtitle="Python, TensorFlow" gradient="from-[#84CC16] to-[#2563EB]" icon={<span>🤖</span>} />
           </div>
-        </section>
+        </section>*/}
 
         {/* Portfolio */}
         <section id="portfolio" className="mt-24">
